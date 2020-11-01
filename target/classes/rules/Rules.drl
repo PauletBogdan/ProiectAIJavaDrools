@@ -1,0 +1,20 @@
+//created on: Nov 1, 2020
+
+import com.sample.*;
+
+rule "Balance has to be positive to have a new Expense"
+
+    when
+    	BO: Balance(currentBalance >=0 )
+    then
+		System.out.println("It's possible to have a new expense " + BO.getCurrentBalance());
+end
+
+rule "MonthlyBalance has to be positive to have a new Expensee"
+
+    when
+    	BO: Balance(currentMonthlyBalance <= 0 )
+    then
+		System.out.println("It's not possible to have a new expense this month " + BO.getCurrentMonthlyBalance());
+end
+
