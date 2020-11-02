@@ -19,9 +19,9 @@ public abstract class Payment {
 		this.value = value;
 	}
 
-	public Payment(PaymentType paymentType, Double value) {
+	public Payment(Double value) {
 		super();
-		this.paymentType = paymentType;
+
 		this.value = value;
 	}
 	

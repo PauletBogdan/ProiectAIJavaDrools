@@ -1,20 +1,109 @@
 //created on: Nov 1, 2020
 
+
 import com.sample.*;
 
-rule "Balance has to be positive to have a new Expense"
+//rule "Payment cannot be of 0.0 value" 
+//
+//	when 
+//		Pay: Payment_In(value == 0.0) 
+//		Inc: Income(incomeList.size() > 0)
+//	then 
+//		System.out.println("The last element of the list is  " + Inc.getIncomeList().get(Inc.getIncomeList().size()-1).getValue() + " Payment cannot be of 0.0 value");
+//		Inc.getIncomeList().remove(Inc.getIncomeList().size()-1);
+//		System.out.println("The last element of the list is " + Inc.getIncomeList().get(Inc.getIncomeList().size()-1).getValue());
+//
+//end 
+
+rule "Adding a new Expense if the balance is positive"
 
     when
-    	BO: Balance(currentBalance >=0 )
-    then
-		System.out.println("It's possible to have a new expense " + BO.getCurrentBalance());
+    	BO: Balance(currentBalance > 0 )  
+    	Pay: Payment_Out(BO.currentBalance >= Pay.value)
+    	Exp :Expense(expensesList.size() >0)   
+    then	    
+    	Exp.getExpensesList().add(Pay);
+		//System.out.println("You've just added a new Expense with the value: " + Pay.getValue());
 end
 
-rule "MonthlyBalance has to be positive to have a new Expensee"
 
-    when
-    	BO: Balance(currentMonthlyBalance <= 0 )
-    then
-		System.out.println("It's not possible to have a new expense this month " + BO.getCurrentMonthlyBalance());
+rule "Payments cannot be negative" 
+
+	when 
+		Pay: Payment_In(value <0 ) 
+		Inc: Income(incomeList.size() >= 0)
+	then 
+	//	System.out.println("You cannot insert into this list a negative number !! : " + Inc.getIncomeList().get(Inc.getIncomeList().size()-1).getValue());
+		Inc.getIncomeList().remove(Inc.getIncomeList().size()-1);
+	//	System.out.println("The lastest valid Income was : " + Inc.getIncomeList().get(Inc.getIncomeList().size()-1).getValue());
+
+end 
+
+rule "Add a new payment if the payment is positive"
+
+	when
+		Pay: Payment_In(value > 0.0)
+		Inc: Income(incomeList.size() >=0)	
+	then
+	//	System.out.println("Valid Income! Adding it to the incomeList : "  + Pay.getValue() + " Add a new payment if the payment is positive");
+		Inc.getIncomeList().add(Pay);
+	//	System.out.println("The lastest valid Income was : " + Inc.getIncomeList().get(Inc.getIncomeList().size()-1).getValue());
 end
 
+rule "Expenses cannot be negative" 
+
+	when 
+		Pay: Payment_Out(value == 0.0 ) 
+		Exp: Expense(expensesList.size() >= 0)  
+	then 
+		System.out.println("You cannot insert into this list a negative number !! : " + Exp.getExpensesList().get(Exp.getExpensesList().size()-1).getValue());
+		Exp.getExpensesList().remove(Exp.getExpensesList().size()-1);
+		System.out.println("The lastest valid Expense was : " + Exp.getExpensesList().get(Exp.getExpensesList().size()-1).getValue());
+		
+end 
+
+
+rule "If the expense_payment value is greater than 75, the payment Type is Order"
+
+	when
+		PayOut: Payment_Out(value<450)
+	then 
+		PayOut.setPaymentType(PaymentType.ORDER);
+end
+
+rule "If the expense_payment value is greater or equal to 450, the payment Type is SPECIALEVENTS"
+
+	when
+		PayOut: Payment_Out(value >= 450)
+	then 
+		PayOut.setPaymentType(PaymentType.ORDER);
+end
+
+rule "If the expense_payment value is lower or equal to 75, the payment Type is Monthly" 
+
+	when 
+		PayOut: Payment_Out(value <= 75) 
+		
+	then 
+		PayOut.setPaymentType(PaymentType.MONTHLY); 
+		
+end
+
+
+rule "If the income_payment value is lower or equal to 75, the income_payment Type is Monthly" 
+
+	when 
+		PayIn: Payment_In(value <= 75) 
+		
+	then 
+		PayIn.setPaymentType(PaymentType.MONTHLY); 
+		
+end
+
+rule "If the income_payment value is greater than 75, the income_payment Type is Order"
+
+	when
+		PayIn: Payment_Out(value > 75)
+	then 
+		PayIn.setPaymentType(PaymentType.ORDER);
+end

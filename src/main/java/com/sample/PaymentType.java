@@ -1,5 +1,5 @@
 package com.sample;
 
 public enum PaymentType {
-	MONTHLY, ORDER
+	MONTHLY, ORDER, SPECIALEVENTS
 }

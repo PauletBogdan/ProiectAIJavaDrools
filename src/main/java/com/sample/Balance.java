@@ -20,11 +20,14 @@ public class Balance {
 		super();
 		this.expenses = expenses;
 		this.incomes = incomes;
-		this.calculateCurrentBalance(expenses.getTotalExpense(), incomes.getTotalIncome());
-		this.calculateMonthlyBalance(expenses.getMonthlyExpenses(), incomes.getMonthlyIncome());
-		this.calculateOrdersBalance(expenses.getOrdersExpenses(), incomes.getOrdersIncome());		
+	
 	}
-
+	public void calculateAllTheBalance() {
+		this.calculateCurrentBalance(this.expenses.getTotalExpense(), this.incomes.getTotalIncome());
+		this.calculateMonthlyBalance(this.expenses.getMonthlyExpenses(), this.incomes.getMonthlyIncome());
+		this.calculateOrdersBalance(this.expenses.getOrdersExpenses(), this.incomes.getOrdersIncome());
+		
+	}
 
 	public Double calculateCurrentBalance(Double totalExpense, Double totalIncome) {
 

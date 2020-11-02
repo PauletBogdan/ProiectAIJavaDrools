@@ -2,10 +2,11 @@ package com.sample;
 
 public class Payment_In extends Payment {
 
-	public Payment_In(PaymentType paymentType, Double value) {
-		super(paymentType, value);
-		this.paymentFlow = PaymentFlow.IN;
-
+	public Payment_In(Double value) {
+		super(value);
+		// TODO Auto-generated constructor stub
 	}
+
+	
 
 }

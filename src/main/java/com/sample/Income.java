@@ -10,13 +10,11 @@ public class Income {
 	private Double ordersIncome;
 	private ArrayList<Payment_In> incomeList;
 	
-	
 	public Double calculateTotalIncome() {
 		Double totalIncome = 0.0;
 		for (int i = 0; i < this.incomeList.size(); i++) {
 			totalIncome += this.incomeList.get(i).getValue();
 		}
-
 		this.totalIncome = totalIncome;
 		return totalIncome;
 	}
@@ -49,6 +47,7 @@ public class Income {
 
 	public void setIncomeList(ArrayList<Payment_In> incomeList) {
 		this.incomeList = incomeList;
+		
 	}
 
 	public Income(ArrayList<Payment_In> incomeList) {
