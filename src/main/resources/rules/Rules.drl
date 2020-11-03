@@ -175,14 +175,38 @@ rule "If the firm current balance is and higher than 15000, the firm is doing go
 end
 
 //15 
-rule ""
-
-	when
+rule "You cannot have bigger Payment_In than 50000"
 	
+	when 
+		Pay: Payment_In(value > 50000)
+		Inc: Income()
 	then
-	
+	System.out.println("You cannot add a bigger income in than 50000 !");
+		double payment1 = Pay.getValue()/2 ;
+		double payment2 = Pay.getValue() - payment1;
+		Payment_In payment34 = new Payment_In(payment1);	
+		Payment_In payment35 = new Payment_In(payment2);
+		Inc.getIncomeList().add(payment34);
+		Inc.getIncomeList().add(payment35);	
+		System.out.println("We have split the value in two " + payment1 + " and " + payment2);
 end
 
+//16 
+rule "You cannot have bigger Payment_Out than 30000"
+	
+	when 
+		Pay: Payment_Out(value > 30000)
+		Exp: Expense()
+	then
+	System.out.println("You cannot add a bigger expense  than 30000 !");
+		double payment1 = Pay.getValue()/2 ;
+		double payment2 = Pay.getValue() - payment1;
+		Payment_Out payment36 = new Payment_Out(payment1);	
+		Payment_Out payment37 = new Payment_Out(payment2);
+		Exp.getExpensesList().add(payment36);
+		Exp.getExpensesList().add(payment37);	
+		System.out.println("We have split the value in two");
+end
 
 
 
