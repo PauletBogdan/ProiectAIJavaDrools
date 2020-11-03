@@ -64,23 +64,6 @@ public class Main {
 			Double totalExpenseValue = expense.calculateTotalExpense();
 //			System.out.println("Total expense Value is : " + totalExpenseValue);
 
-//		--------- Balance ------------
-
-			Balance balance = new Balance();
-
-//			Double orderBalance = balance.calculateOrdersBalance(orderExpenseValue, orderIncomeValue);
-//			System.out.println("Order Balance Value is : " + orderBalance);
-//
-//			Double monthlyBalance = balance.calculateMonthlyBalance(monthlyExpenseValue, monthlyIncomeValue);
-//			System.out.println("Monthly Balance Value  is : " + monthlyBalance);
-//
-//			Double totalBalance = balance.calculateCurrentBalance(totalExpenseValue, totalIncomeValue);
-//			System.out.println("Total Balance Value is : " + totalBalance);
-
-//		-------------Firm---------------
-
-			Firm firm = new Firm("Jean SRL", "WebDev", balance);
-
 //		-------------------------------------------------------------------------------------------------------------
 
 			Payment_In payment_in231 = new Payment_In(231.0);
@@ -89,17 +72,21 @@ public class Main {
 			Payment_Out payment_out367 = new Payment_Out(461.0);
 			expenseList.add(payment_out367);
 
+			Payment_Out payment_out21 = new Payment_Out(100265.3);
+			expenseList.add(payment_out21); 
+			
+			Payment_In payment_in3722 = new Payment_In(0.0);
+			
 			Expense newExpense = new Expense(expenseList);
 
 			Income newIncome = new Income(incomeList);
 
-			Payment_Out payment_out21 = new Payment_Out(0.0);
-
 			Balance newBalance = new Balance(newExpense, newIncome);
 			newBalance.calculateAllTheBalance();
+			
+			Firm firm = new Firm("Jean SRL", "WebDev", newBalance);
 
 //			System.out.println(newBalance.getCurrentMonthlyBalance());
-			Payment_In payment_in3722 = new Payment_In(0.0);
 			// go !
 			kSession.insert(payment_out21);
 			kSession.insert(payment_in3722);
@@ -107,6 +94,7 @@ public class Main {
 			kSession.insert(newIncome);
 			kSession.insert(newExpense);
 			kSession.insert(newBalance);
+			kSession.insert(firm);
 			kSession.fireAllRules();
 
 		} catch (Throwable t) {

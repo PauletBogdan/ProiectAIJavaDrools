@@ -7,7 +7,19 @@ public class Expense{
 	private Double totalExpense;
 	private Double monthlyExpenses;
 	private Double ordersExpenses;
+	private Double specialEventsExpenses;
 	private ArrayList<Payment_Out> expensesList;
+	
+	public Double calculateSpecialEventsExpenses() {
+		Double specialEventsExpenses = 0.0;
+		for (int i = 0; i < expensesList.size(); i++) {
+			if (expensesList.get(i).getPaymentType() == PaymentType.SPECIALEVENTS) {
+				specialEventsExpenses += expensesList.get(i).getValue();
+			}
+		}
+		this.specialEventsExpenses = specialEventsExpenses;
+		return this.specialEventsExpenses;
+	}
 	
 	public Double calculateMonthlyExpenses() {
 		Double monthlyExpenses = 0.0;
@@ -40,6 +52,7 @@ public class Expense{
 		return this.totalExpense;
 	}
 
+
 	public ArrayList<Payment_Out> getExpensesList() {
 		return expensesList;
 	}
@@ -54,6 +67,7 @@ public class Expense{
 		this.calculateMonthlyExpenses();
 		this.calculateTotalExpense();
 		this.calculateOrdersExpenses();
+		this.calculateSpecialEventsExpenses();
 	}
 
 	public Double getTotalExpense() {
@@ -67,5 +81,10 @@ public class Expense{
 	public Double getOrdersExpenses() {
 		return ordersExpenses;
 	}
+
+	public Double getSpecialEventsExpenses() {
+		return specialEventsExpenses;
+	}
+	
 	
 }

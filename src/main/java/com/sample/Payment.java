@@ -1,10 +1,13 @@
 package com.sample;
 
+import java.util.Date;
+
 public abstract class Payment {
 
 	protected PaymentFlow paymentFlow;
 	private PaymentType paymentType;
 	private Double value;
+	private Date date;
 	
 	public PaymentType getPaymentType() {
 		return paymentType;
@@ -28,4 +31,5 @@ public abstract class Payment {
 	public PaymentFlow getPaymentFlow() {
 		return paymentFlow;
 	}	
+	
 }

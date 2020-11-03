@@ -1,17 +1,18 @@
 package com.sample;
 
-
 public class Firm {
 
 	private String name;
 	private String businessDomain;
 	private Balance balance;
+	private BankruptcyStatus bankruptcyStatus;
 	
 	public Firm(String name, String businessDomain, Balance balance) {
 		super();
 		this.name = name;
 		this.businessDomain = businessDomain;
 		this.balance = balance;
+		this.bankruptcyStatus = BankruptcyStatus.NOT_ENOUGH_DATA;
 	}
 	public Firm(String name, String businessDomain) {
 		super();
@@ -45,5 +46,12 @@ public class Firm {
 			System.out.println("Firm is not doing ok");
 		}
 	}
+	public BankruptcyStatus getBankruptcyStatus() {
+		return bankruptcyStatus;
+	}
+	public void setBankruptcyStatus(BankruptcyStatus bankRuptcyStatus) {
+		this.bankruptcyStatus = bankRuptcyStatus;
+	}
+	
 	
 }
